@@ -13,7 +13,7 @@ public class SimpleGridData implements GridData {
     private String name;
     private List<GridDataListener> listeners;
 
-    public SimpleGridData()t {
+    public SimpleGridData() {
         name = "";
         listeners = new ArrayList<>();
     }
