@@ -1,10 +1,13 @@
 package ch.fhnw.ima.sliceview.present.image;
 
 import ch.fhnw.ima.sliceview.app.ApplicationContext;
+import ch.fhnw.ima.sliceview.logic.ImageModel;
+import ch.fhnw.ima.sliceview.logic.ImageModelListener;
+import ch.fhnw.ima.sliceview.logic.MouseSelectionListener;
 import ch.fhnw.ima.sliceview.present.DrawingPane;
 import javafx.scene.image.Image;
 
-class ImageView extends DrawingPane {
+public class ImageView extends DrawingPane {
     private ApplicationContext applicationContext;
     private double imageX;
     private double imageY;
@@ -17,7 +20,22 @@ class ImageView extends DrawingPane {
         imageX = 0;
         imageY = 0;
 
-        applicationContext.getImageModel().addListener(ImageView.this::repaint);
+        applicationContext.getImageModel().addListener(this::repaint);
+
+       /* applicationContext.getSelectionInformation().addListener(new SelectionInformationListener() {
+            @Override
+            public void selectionInformationChanged() {
+                int value = (int)applicationContext.getSelectionInformation().getValue();
+                ImageView.this.repaint();
+                g.drawImage(applicationContext.getImageModel().getSelectionImage(value), imageX,imageY,imageWidth,imageHeight);
+            }
+            public void rangeInformationChanged(){
+                double startValue = applicationContext.getSelectionInformation().getStartValue();
+                double endValue = applicationContext.getSelectionInformation().getEndValue();
+                ImageView.this.repaint();
+                g.drawImage(applicationContext.getImageModel().getSelectionImage((int)startValue, (int)endValue), imageX,imageY,imageWidth,imageHeight);
+            }
+        });*/
     }
 
     @Override
@@ -75,5 +93,5 @@ class ImageView extends DrawingPane {
             return -1;
         }
     }
-    
+
 }

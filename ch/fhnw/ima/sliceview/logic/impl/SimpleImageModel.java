@@ -6,6 +6,7 @@ import ch.fhnw.ima.sliceview.logic.ImageModel;
 import ch.fhnw.ima.sliceview.logic.ImageModelListener;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +92,7 @@ public class SimpleImageModel implements ImageModel {
             for (int row = 0; row < gridData.getHeight(); row++) {
                 for (int column = 0; column < gridData.getWidth(); column++) {
                     int value = gridData.getValue(column, row);
-                    windowedValue[0] = (int) ((double)(value - min) / (double)(max - min) * 255);
+                    windowedValue[0] = (int) ((double) (value - min) / (double) (max - min) * 255);
                     windowedValue[0] = Math.min(windowedValue[0], 255);
                     windowedValue[0] = Math.max(windowedValue[0], 0);
                     int argb = (255 << 24) | (windowedValue[0] << 16) | (windowedValue[0] << 8) | windowedValue[0];

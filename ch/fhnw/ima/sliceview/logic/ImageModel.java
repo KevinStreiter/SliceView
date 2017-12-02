@@ -49,4 +49,5 @@ public interface ImageModel {
      * @param listener the listener to add
      */
     void addListener(ImageModelListener listener);
+
 }
