@@ -1,13 +1,8 @@
 package ch.fhnw.ima.sliceview.app;
 
-import ch.fhnw.ima.sliceview.logic.GridData;
-import ch.fhnw.ima.sliceview.logic.ImageModel;
-import ch.fhnw.ima.sliceview.logic.ImageViewController;
-import ch.fhnw.ima.sliceview.logic.MouseSelection;
-import ch.fhnw.ima.sliceview.logic.impl.SimpleGridData;
-import ch.fhnw.ima.sliceview.logic.impl.SimpleImageModel;
-import ch.fhnw.ima.sliceview.logic.impl.SimpleImageViewController;
-import ch.fhnw.ima.sliceview.logic.impl.SimpleMouseSelection;
+import ch.fhnw.ima.sliceview.logic.*;
+import ch.fhnw.ima.sliceview.logic.impl.*;
+import ch.fhnw.ima.sliceview.present.histo.HistogramView;
 import ch.fhnw.ima.sliceview.present.image.ImageView;
 
 /**
@@ -20,9 +15,11 @@ public class ApplicationContext {
     private String name;
     private GridData gridData;
     private ImageView imageView;
+    private HistogramView histogramView;
     private ImageModel imageModel;
     private MouseSelection mouseSelection;
     private ImageViewController imageViewController;
+    private HistogramViewController histogramViewController;
 
     public ApplicationContext(String version, String name) {
         this.version = version;
@@ -59,5 +56,10 @@ public class ApplicationContext {
     public void setCurrentImageView(ImageView imageView) {
         this.imageView = imageView;
         this.imageViewController = new SimpleImageViewController(this,imageView);
+    }
+
+    public void setCurrentHistogramView(HistogramView histogramView) {
+        this.histogramView = histogramView;
+        this.histogramViewController = new SimpleHistogramViewController(this, histogramView);
     }
 }

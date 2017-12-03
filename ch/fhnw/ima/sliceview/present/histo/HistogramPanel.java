@@ -23,6 +23,7 @@ public class HistogramPanel extends StackPane {
         final StackPane histogramPanel = new StackPane();
         histogramPanel.setStyle("-fx-border-color: black");
         histogramPanel.getChildren().add(histogramView);
+        applicationContext.setCurrentHistogramView(histogramView);
 
         // Create the panel with the controls
         //------------------------------------

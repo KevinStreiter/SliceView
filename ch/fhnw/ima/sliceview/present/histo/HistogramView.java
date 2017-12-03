@@ -1,23 +1,23 @@
 package ch.fhnw.ima.sliceview.present.histo;
 
 import ch.fhnw.ima.sliceview.app.ApplicationContext;
-import ch.fhnw.ima.sliceview.logic.GridData;
-import ch.fhnw.ima.sliceview.logic.GridDataListener;
-import ch.fhnw.ima.sliceview.logic.Histogram;
+import ch.fhnw.ima.sliceview.logic.*;
 import ch.fhnw.ima.sliceview.present.DrawingPane;
 import javafx.scene.paint.Color;
 
-class HistogramView extends DrawingPane {
+public class HistogramView extends DrawingPane {
     private static double BORDER_PERCENTAGE = 0.1;
 
     private ApplicationContext applicationContext;
     private Histogram histogram;
     private GridData gridData;
+    private ImageModel imageModel;
     private boolean isLogarithmicScale;
 
     HistogramView(ApplicationContext applicationContext, Histogram histogram) {
         this.applicationContext = applicationContext;
         this.gridData = applicationContext.getGridData();
+        this.imageModel = applicationContext.getImageModel();
         this.histogram = histogram;
 
         isLogarithmicScale = true;
@@ -29,6 +29,7 @@ class HistogramView extends DrawingPane {
         });
 
         applicationContext.getMouseSelection().addListener(this::selectionPaint);
+        applicationContext.getImageModel().addListener(this::selectionBorder);
 
     }
 
@@ -53,7 +54,7 @@ class HistogramView extends DrawingPane {
     }
 
     private void selectionPaint() {
-        repaint();
+        selectionBorder();
         int index;
         int xCoordinate = applicationContext.getMouseSelection().getXCoordinate();
         int yCoordinate = applicationContext.getMouseSelection().getYCoordinate();
@@ -85,5 +86,29 @@ class HistogramView extends DrawingPane {
         int columnHeight = (int) ((count / maxCount) * (height - BORDER_PERCENTAGE * height));
 
         g.fillRect(x0, height-columnHeight, columnWidth, columnHeight);
+    }
+
+    private void selectionBorder() {
+        repaint();
+        double minValue = imageModel.getMin();
+        double maxValue = imageModel.getMax();
+        int min = gridData.getMinValue();
+        int max = gridData.getMaxValue();
+
+        double minBorder = (minValue-min) / (max-min) * getWidth();
+        drawStroke(minBorder);
+        double maxBorder = (maxValue-min) / (max-min) * getWidth();
+        drawStroke(maxBorder);
+
+    }
+
+    private void drawStroke(double border){
+        g.beginPath();
+        g.setStroke(Color.BLACK);
+        g.setLineWidth(4);
+        g.moveTo(border,0);
+        g.lineTo(border,getHeight());
+        g.getFont();
+        g.stroke();
     }
 }
