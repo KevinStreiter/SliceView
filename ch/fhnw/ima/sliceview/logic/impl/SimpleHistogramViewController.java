@@ -43,19 +43,18 @@ public class SimpleHistogramViewController implements HistogramViewController {
     }
 
     public void setStartPosition(double startPosition) {
-        imageModel.setMin(calculateRange(startPosition));
+        mouseSelection.setStartPosition(calculateRange(startPosition));
     }
 
     public void setEndPosition(double endPosition) {
-        imageModel.setMax(calculateRange(endPosition));
+        mouseSelection.setEndPosition(calculateRange(endPosition));
     }
 
-    private int calculateRange(double position) {
-
+    private double calculateRange(double position) {
         int min = gridData.getMinValue();
         int max = gridData.getMaxValue();
         double width = histogramView.getWidth();
-        return (int)(((position/width)*(max-min))+min);
+        return (((position/width)*(max-min))+min);
     }
 
     public void addListener(HistogramViewControllerListener listener){

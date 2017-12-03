@@ -19,8 +19,10 @@ public class SimpleMouseSelection implements MouseSelection {
     private double endPosition;
     private List<MouseSelectionListener> listeners;
     private GridData gridData;
+    private ApplicationContext applicationContext;
 
     public SimpleMouseSelection(ApplicationContext applicationContext, GridData gridData) {
+        this.applicationContext = applicationContext;
         this.gridData = gridData;
         listeners = new ArrayList<>();
 
@@ -53,6 +55,18 @@ public class SimpleMouseSelection implements MouseSelection {
 
     public double getValue(){
         return this.value;
+    }
+
+    public void setStartPosition(double startPosition){
+        this.startPosition = startPosition;
+        applicationContext.getImageModel().setMin((int)startPosition);
+        fireSelectionChanged();
+    }
+
+    public void setEndPosition(double endPosition){
+        this.endPosition = endPosition;
+        applicationContext.getImageModel().setMax((int)endPosition);
+        fireSelectionChanged();
     }
 
     public void setValue(){

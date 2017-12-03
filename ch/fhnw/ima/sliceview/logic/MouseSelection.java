@@ -14,6 +14,10 @@ public interface MouseSelection {
 
     void setValue();
 
+    void setStartPosition(double startPosition);
+
+    void setEndPosition(double endPosition);
+
     void addListener(MouseSelectionListener listener);
 
 }
