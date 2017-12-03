@@ -14,10 +14,6 @@ public interface MouseSelection {
 
     void setValue();
 
-    double getStartRange();
-
-    double getEndRange();
-
     void addListener(MouseSelectionListener listener);
 
 }

@@ -15,8 +15,8 @@ public class SimpleMouseSelection implements MouseSelection {
     private int xCoordinate = -1;
     private int yCoordinate = -1;
     private double value;
-    private double startRange;
-    private double endRange;
+    private double startPosition;
+    private double endPosition;
     private List<MouseSelectionListener> listeners;
     private GridData gridData;
 
@@ -31,7 +31,6 @@ public class SimpleMouseSelection implements MouseSelection {
                 setYCoordinate(-1);
             }
         });
-
     }
 
     public int getXCoordinate(){
@@ -59,14 +58,6 @@ public class SimpleMouseSelection implements MouseSelection {
     public void setValue(){
         this.value = gridData.getValue(xCoordinate, yCoordinate);
         fireSelectionChanged();
-    }
-
-    public double getStartRange(){
-        return this.startRange;
-    }
-
-    public double getEndRange(){
-        return this.endRange;
     }
 
     public void addListener(MouseSelectionListener listener) {

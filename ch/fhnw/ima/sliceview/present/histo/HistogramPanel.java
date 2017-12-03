@@ -6,6 +6,7 @@ import ch.fhnw.ima.sliceview.logic.ImageModelListener;
 import ch.fhnw.ima.sliceview.logic.impl.SimpleHistogram;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -66,6 +67,17 @@ public class HistogramPanel extends StackPane {
             applicationContext.getImageModel().setMax(maxValue);
         });
         controlPanel.getChildren().add(maxTextField);
+
+        Region fillerRegion2 = new Region();
+        controlPanel.getChildren().add(fillerRegion2);
+        HBox.setHgrow(fillerRegion2, Priority.ALWAYS);
+
+        final Button clearButton = new Button("clear");
+        controlPanel.getChildren().add(clearButton);
+        clearButton.setOnAction(event -> {
+            applicationContext.getImageModel().setMin(applicationContext.getGridData().getMinValue());
+            applicationContext.getImageModel().setMax(applicationContext.getGridData().getMaxValue());
+        });
 
         applicationContext.getImageModel().addListener(new ImageModelListener() {
             public void imageModelChanged() {

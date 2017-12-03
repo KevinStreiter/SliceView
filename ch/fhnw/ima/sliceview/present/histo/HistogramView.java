@@ -12,6 +12,7 @@ public class HistogramView extends DrawingPane {
     private Histogram histogram;
     private GridData gridData;
     private ImageModel imageModel;
+
     private boolean isLogarithmicScale;
 
     HistogramView(ApplicationContext applicationContext, Histogram histogram) {

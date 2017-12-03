@@ -49,10 +49,6 @@ public class ApplicationContext {
         return mouseSelection;
     }
 
-    public ImageViewController getImageViewController() {
-        return imageViewController;
-    }
-
     public void setCurrentImageView(ImageView imageView) {
         this.imageView = imageView;
         this.imageViewController = new SimpleImageViewController(this,imageView);

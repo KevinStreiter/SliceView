@@ -32,12 +32,10 @@ public class SimpleImageViewController implements ImageViewController {
     }
 
     public void setXCoordinate(int xCoordinate) {
-        System.out.println("x "+xCoordinate);
         mouseSelection.setXCoordinate(xCoordinate);
     }
 
     public void setYCoordinate(int yCoordinate) {
-        System.out.println("y "+yCoordinate);
         mouseSelection.setYCoordinate(yCoordinate);
     }
 }
