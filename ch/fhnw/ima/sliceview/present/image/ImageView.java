@@ -4,6 +4,7 @@ import ch.fhnw.ima.sliceview.app.ApplicationContext;
 import ch.fhnw.ima.sliceview.logic.ImageModel;
 import ch.fhnw.ima.sliceview.logic.ImageModelListener;
 import ch.fhnw.ima.sliceview.logic.MouseSelectionListener;
+import ch.fhnw.ima.sliceview.logic.impl.SimpleImageViewController;
 import ch.fhnw.ima.sliceview.present.DrawingPane;
 import javafx.scene.image.Image;
 
@@ -13,6 +14,8 @@ public class ImageView extends DrawingPane {
     private double imageY;
     private double imageWidth;
     private double imageHeight;
+
+
 
     ImageView(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
@@ -64,7 +67,7 @@ public class ImageView extends DrawingPane {
      * @return the corresponding position in the data grid
      */
     public int getDataX(int x) {
-        if (imageWidth > 0) {
+        if (imageWidth > 0 || x != -1) {
             double normalizedX = (double)(x - imageX) / (double)imageWidth;
             if ((normalizedX >= 0) && (normalizedX <= 1)) {
                 return (int) (normalizedX * (applicationContext.getGridData().getWidth()-1));
@@ -82,7 +85,7 @@ public class ImageView extends DrawingPane {
      * @return the corresponding position in the data grid
      */
     public int getDataY(int y) {
-        if (imageHeight > 0) {
+        if (imageHeight > 0 || y != -1) {
             double normalizedY = (double)(y - imageY) / (double)imageHeight;
             if ((normalizedY >= 0) && (normalizedY <= 1)) {
                 return (int) (normalizedY * (applicationContext.getGridData().getHeight()-1));
@@ -93,5 +96,4 @@ public class ImageView extends DrawingPane {
             return -1;
         }
     }
-
 }

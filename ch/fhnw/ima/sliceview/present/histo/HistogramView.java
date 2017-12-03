@@ -1,6 +1,7 @@
 package ch.fhnw.ima.sliceview.present.histo;
 
 import ch.fhnw.ima.sliceview.app.ApplicationContext;
+import ch.fhnw.ima.sliceview.logic.GridData;
 import ch.fhnw.ima.sliceview.logic.GridDataListener;
 import ch.fhnw.ima.sliceview.logic.Histogram;
 import ch.fhnw.ima.sliceview.present.DrawingPane;
@@ -11,10 +12,12 @@ class HistogramView extends DrawingPane {
 
     private ApplicationContext applicationContext;
     private Histogram histogram;
+    private GridData gridData;
     private boolean isLogarithmicScale;
 
     HistogramView(ApplicationContext applicationContext, Histogram histogram) {
         this.applicationContext = applicationContext;
+        this.gridData = applicationContext.getGridData();
         this.histogram = histogram;
 
         isLogarithmicScale = true;
@@ -24,6 +27,8 @@ class HistogramView extends DrawingPane {
                 repaint();
             }
         });
+
+        applicationContext.getMouseSelection().addListener(this::selectionPaint);
 
     }
 
@@ -46,6 +51,20 @@ class HistogramView extends DrawingPane {
 
         }
     }
+
+    private void selectionPaint() {
+        repaint();
+        int index;
+        int xCoordinate = applicationContext.getMouseSelection().getXCoordinate();
+        int yCoordinate = applicationContext.getMouseSelection().getYCoordinate();
+        int value = applicationContext.getGridData().getValue(xCoordinate, yCoordinate);
+        if(value != (gridData.getMaxValue()+gridData.getMinValue())) {
+            index = histogram.getBinIndex(value);
+            g.setFill(Color.BLUE);
+            drawBar(index);
+        }
+    }
+
 
     private void drawBar(int index) {
         double height = getHeight();

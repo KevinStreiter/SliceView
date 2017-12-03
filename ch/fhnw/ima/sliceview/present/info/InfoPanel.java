@@ -2,6 +2,7 @@ package ch.fhnw.ima.sliceview.present.info;
 
 import ch.fhnw.ima.sliceview.app.ApplicationContext;
 import ch.fhnw.ima.sliceview.logic.MouseSelectionListener;
+import ch.fhnw.ima.sliceview.present.image.ImageView;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
@@ -34,21 +35,27 @@ public class InfoPanel extends StackPane {
         refreshDataInformation();
 
         applicationContext.getGridData().addListener(this::refreshDataInformation);
-        applicationContext.getMouseSelection().addListener(new MouseSelectionListener() {
-            @Override
-            public void selectionChanged() {
-                refreshDataInformation();
-            }
-        });
+        applicationContext.getMouseSelection().addListener(this::refreshDataInformation);
+
     }
 
     private void refreshDataInformation() {
 
-        nameLabel.setText(applicationContext.getGridData().getName());
-        coordinatesLabel.setText(String.valueOf((applicationContext.getMouseSelection().getXCoordinate()))+"/"+
-                                 String.valueOf((applicationContext.getMouseSelection().getYCoordinate())));
-        valueLabel.setText(String.valueOf(applicationContext.getMouseSelection().getValue()));
+        int xCoordinate = applicationContext.getMouseSelection().getXCoordinate();
+        int yCoordinate = applicationContext.getMouseSelection().getYCoordinate();
+        double value = applicationContext.getMouseSelection().getValue();
 
+        if(xCoordinate == -1 || yCoordinate == -1) {
+            coordinatesLabel.setText("-/-");
+            valueLabel.setText("-");
+        }
+        else {
+
+            coordinatesLabel.setText(String.valueOf(xCoordinate) + "/" +
+                    String.valueOf(yCoordinate));
+            valueLabel.setText(String.valueOf(value));
+        }
+        nameLabel.setText(applicationContext.getGridData().getName());
     }
 
 }

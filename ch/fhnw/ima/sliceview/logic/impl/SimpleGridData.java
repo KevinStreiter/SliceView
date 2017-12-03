@@ -36,7 +36,13 @@ public class SimpleGridData implements GridData {
     }
 
     public int getValue(int x, int y) {
-        return values[y][x];
+        if(x != -1 && y != -1){
+            return values[y][x];
+        }
+        else {
+            return min+max;
+        }
+
     }
 
     public int getMinValue() {

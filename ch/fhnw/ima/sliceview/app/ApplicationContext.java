@@ -29,7 +29,7 @@ public class ApplicationContext {
         this.name = name;
         gridData = new SimpleGridData();
         imageModel = new SimpleImageModel(gridData);
-        mouseSelection = new SimpleMouseSelection(gridData);
+        mouseSelection = new SimpleMouseSelection(this, gridData);
     }
 
     public String getVersion() {
@@ -56,7 +56,7 @@ public class ApplicationContext {
         return imageViewController;
     }
 
-    public void setImageView(ImageView imageView) {
+    public void setCurrentImageView(ImageView imageView) {
         this.imageView = imageView;
         this.imageViewController = new SimpleImageViewController(this,imageView);
     }

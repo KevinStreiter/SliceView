@@ -7,6 +7,7 @@ public class ImagePanel extends StackPane {
     public ImagePanel(ApplicationContext applicationContext) {
         ImageView imageView = new ImageView(applicationContext);
         imageView.setStyle("-fx-background-color: white");
+        applicationContext.setCurrentImageView(imageView);
 
         getChildren().add(imageView);
     }
