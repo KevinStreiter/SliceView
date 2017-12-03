@@ -29,7 +29,14 @@ public class HistogramView extends DrawingPane {
             }
         });
 
-        applicationContext.getMouseSelection().addListener(this::selectionPaint);
+        applicationContext.getMouseSelection().addListener(new MouseSelectionListener() {
+            @Override
+            public void selectionChanged() {
+                selectionPaint();
+                //drawSelectionBar();
+            }
+        });
+
         applicationContext.getImageModel().addListener(this::selectionBorder);
 
     }
@@ -60,7 +67,7 @@ public class HistogramView extends DrawingPane {
         int xCoordinate = applicationContext.getMouseSelection().getXCoordinate();
         int yCoordinate = applicationContext.getMouseSelection().getYCoordinate();
         int value = applicationContext.getGridData().getValue(xCoordinate, yCoordinate);
-        if(value != (gridData.getMaxValue()+gridData.getMinValue())) {
+        if(value != (gridData.getMaxValue() + gridData.getMinValue())) {
             index = histogram.getBinIndex(value);
             g.setFill(Color.BLUE);
             drawBar(index);
@@ -111,5 +118,13 @@ public class HistogramView extends DrawingPane {
         g.lineTo(border,getHeight());
         g.getFont();
         g.stroke();
+    }
+
+    private void drawSelectionBar(){
+        selectionBorder();
+        double value = applicationContext.getMouseSelection().getSelectedHistogramValue();
+        int index = histogram.getBinIndex((int)value);
+        g.setFill(Color.BLUE);
+        drawBar(index);
     }
 }

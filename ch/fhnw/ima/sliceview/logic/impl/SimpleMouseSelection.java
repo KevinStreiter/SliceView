@@ -5,6 +5,7 @@ import ch.fhnw.ima.sliceview.logic.GridData;
 import ch.fhnw.ima.sliceview.logic.GridDataListener;
 import ch.fhnw.ima.sliceview.logic.MouseSelection;
 import ch.fhnw.ima.sliceview.logic.MouseSelectionListener;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +16,10 @@ public class SimpleMouseSelection implements MouseSelection {
     private int xCoordinate = -1;
     private int yCoordinate = -1;
     private double value;
-    private double startPosition;
-    private double endPosition;
+    private double histogramValue;
+    private int min;
+    private int max;
+    private int bin;
     private List<MouseSelectionListener> listeners;
     private GridData gridData;
     private ApplicationContext applicationContext;
@@ -58,13 +61,11 @@ public class SimpleMouseSelection implements MouseSelection {
     }
 
     public void setStartPosition(double startPosition){
-        this.startPosition = startPosition;
         applicationContext.getImageModel().setMin((int)startPosition);
         fireSelectionChanged();
     }
 
     public void setEndPosition(double endPosition){
-        this.endPosition = endPosition;
         applicationContext.getImageModel().setMax((int)endPosition);
         fireSelectionChanged();
     }
@@ -72,6 +73,30 @@ public class SimpleMouseSelection implements MouseSelection {
     public void setValue(){
         this.value = gridData.getValue(xCoordinate, yCoordinate);
         fireSelectionChanged();
+    }
+
+    public void setSelectedHistogramValue(double histogramValue){
+        this.histogramValue = histogramValue;
+    }
+
+    public double getSelectedHistogramValue(){
+        return this.histogramValue;
+    }
+
+    public void getMin(int min){
+        this.min = min;
+        setImage();
+        fireSelectionChanged();
+    }
+
+    public void getMax(int max){
+        this.max = max;
+        setImage();
+        fireSelectionChanged();
+    }
+
+    public Image setImage(){
+        return applicationContext.getImageModel().getSelection(min, max);
     }
 
     public void addListener(MouseSelectionListener listener) {

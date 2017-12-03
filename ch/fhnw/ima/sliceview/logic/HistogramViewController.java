@@ -6,6 +6,9 @@ public interface HistogramViewController {
 
     void setEndPosition(double endPosition);
 
-    void addListener(HistogramViewControllerListener listener);
+    void getMin(int min);
 
+    void getMax(int max);
+
+    void setSelectedHistogramValue(double histogramValue);
 }

@@ -25,20 +25,14 @@ public class ImageView extends DrawingPane {
 
         applicationContext.getImageModel().addListener(this::repaint);
 
-       /* applicationContext.getSelectionInformation().addListener(new SelectionInformationListener() {
+        applicationContext.getMouseSelection().addListener(new MouseSelectionListener() {
             @Override
-            public void selectionInformationChanged() {
-                int value = (int)applicationContext.getSelectionInformation().getValue();
-                ImageView.this.repaint();
-                g.drawImage(applicationContext.getImageModel().getSelectionImage(value), imageX,imageY,imageWidth,imageHeight);
+            public void selectionChanged() {
+                repaint();
+                g.drawImage(applicationContext.getMouseSelection().setImage(), imageX, imageY, imageWidth, imageHeight);
+
             }
-            public void rangeInformationChanged(){
-                double startValue = applicationContext.getSelectionInformation().getStartValue();
-                double endValue = applicationContext.getSelectionInformation().getEndValue();
-                ImageView.this.repaint();
-                g.drawImage(applicationContext.getImageModel().getSelectionImage((int)startValue, (int)endValue), imageX,imageY,imageWidth,imageHeight);
-            }
-        });*/
+        });
     }
 
     @Override
@@ -58,6 +52,7 @@ public class ImageView extends DrawingPane {
             imageY = (getHeight() - imageHeight) / 2;
 
             g.drawImage(applicationContext.getImageModel().getImage(), imageX, imageY, imageWidth, imageHeight);
+
         }
     }
 

@@ -1,9 +1,6 @@
 package ch.fhnw.ima.sliceview.logic.impl;
 
-import ch.fhnw.ima.sliceview.logic.GridData;
-import ch.fhnw.ima.sliceview.logic.GridDataListener;
-import ch.fhnw.ima.sliceview.logic.ImageModel;
-import ch.fhnw.ima.sliceview.logic.ImageModelListener;
+import ch.fhnw.ima.sliceview.logic.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.scene.paint.Color;
@@ -34,6 +31,8 @@ public class SimpleImageModel implements ImageModel {
                 SimpleImageModel.this.fireModelChanged();
             }
         });
+
+
 
         listeners = new ArrayList<>();
     }
@@ -101,5 +100,21 @@ public class SimpleImageModel implements ImageModel {
             }
             image = writableImage;
         }
+    }
+
+    public Image getSelection(int min, int max) {
+        WritableImage selectionImage = null;
+        if ((gridData.getWidth() > 0) && (gridData.getHeight() > 0)) {
+            selectionImage = new WritableImage(gridData.getWidth(), gridData.getHeight());
+            for (int row = 0; row < gridData.getHeight(); row++) {
+                for (int column = 0; column < gridData.getWidth(); column++) {
+                    int valueGrid = gridData.getValue(column, row);
+                    if (valueGrid >= min && valueGrid <= max) {
+                        selectionImage.getPixelWriter().setColor(column, row, Color.BLUE);
+                    }
+                }
+            }
+        }
+        return selectionImage;
     }
 }

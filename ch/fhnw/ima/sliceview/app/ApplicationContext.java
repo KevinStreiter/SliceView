@@ -20,6 +20,7 @@ public class ApplicationContext {
     private MouseSelection mouseSelection;
     private ImageViewController imageViewController;
     private HistogramViewController histogramViewController;
+    private Histogram histogram;
 
     public ApplicationContext(String version, String name) {
         this.version = version;
@@ -27,6 +28,8 @@ public class ApplicationContext {
         gridData = new SimpleGridData();
         imageModel = new SimpleImageModel(gridData);
         mouseSelection = new SimpleMouseSelection(this, gridData);
+        histogram = new SimpleHistogram(gridData);
+
     }
 
     public String getVersion() {
@@ -47,6 +50,10 @@ public class ApplicationContext {
 
     public MouseSelection getMouseSelection() {
         return mouseSelection;
+    }
+
+    public Histogram getHistogram() {
+        return histogram;
     }
 
     public void setCurrentImageView(ImageView imageView) {
