@@ -29,7 +29,6 @@ public class ApplicationContext {
         imageModel = new SimpleImageModel(gridData);
         mouseSelection = new SimpleMouseSelection(this, gridData);
         histogram = new SimpleHistogram(gridData);
-
     }
 
     public String getVersion() {

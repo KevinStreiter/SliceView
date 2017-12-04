@@ -32,4 +32,5 @@ public interface MouseSelection {
 
     void addListener(MouseSelectionListener listener);
 
+    void addListener2(MouseSelectionListener listener);
 }

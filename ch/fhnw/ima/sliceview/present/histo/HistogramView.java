@@ -2,6 +2,7 @@ package ch.fhnw.ima.sliceview.present.histo;
 
 import ch.fhnw.ima.sliceview.app.ApplicationContext;
 import ch.fhnw.ima.sliceview.logic.*;
+import ch.fhnw.ima.sliceview.logic.impl.SimpleHistogramViewController;
 import ch.fhnw.ima.sliceview.present.DrawingPane;
 import javafx.scene.paint.Color;
 
@@ -33,7 +34,26 @@ public class HistogramView extends DrawingPane {
             @Override
             public void selectionChanged() {
                 selectionPaint();
-                //drawSelectionBar();
+            }
+
+            @Override
+            public void histogramChanged() {
+            }
+        });
+
+
+        applicationContext.getMouseSelection().addListener2(new MouseSelectionListener() {
+
+            @Override
+            public void selectionChanged() {
+            }
+
+            @Override
+            public void histogramChanged() {
+                if((gridData.getWidth() > 0) && (gridData.getHeight() > 0)) {
+                    selectionPaint();
+                    drawSelectionBar();
+                }
             }
         });
 
@@ -121,7 +141,6 @@ public class HistogramView extends DrawingPane {
     }
 
     private void drawSelectionBar(){
-        selectionBorder();
         double value = applicationContext.getMouseSelection().getSelectedHistogramValue();
         int index = histogram.getBinIndex((int)value);
         g.setFill(Color.BLUE);

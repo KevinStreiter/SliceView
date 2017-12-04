@@ -25,12 +25,17 @@ public class ImageView extends DrawingPane {
 
         applicationContext.getImageModel().addListener(this::repaint);
 
-        applicationContext.getMouseSelection().addListener(new MouseSelectionListener() {
+        applicationContext.getMouseSelection().addListener2(new MouseSelectionListener() {
+
             @Override
             public void selectionChanged() {
+
+            }
+
+            @Override
+            public void histogramChanged() {
                 repaint();
                 g.drawImage(applicationContext.getMouseSelection().setImage(), imageX, imageY, imageWidth, imageHeight);
-
             }
         });
     }

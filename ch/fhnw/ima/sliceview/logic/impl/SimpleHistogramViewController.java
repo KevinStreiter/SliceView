@@ -4,11 +4,13 @@ import ch.fhnw.ima.sliceview.app.ApplicationContext;
 import ch.fhnw.ima.sliceview.logic.*;
 import ch.fhnw.ima.sliceview.present.histo.HistogramView;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SimpleHistogramViewController implements HistogramViewController {
 
-    ApplicationContext applicationContext;
+    private ApplicationContext applicationContext;
     private HistogramView histogramView;
     private MouseSelection mouseSelection;
     private GridData gridData;
@@ -20,7 +22,6 @@ public class SimpleHistogramViewController implements HistogramViewController {
         this.histogramView = histogramView;
         this.gridData = applicationContext.getGridData();
         getRange();
-        getSelectedBin();
     }
 
     private void getRange(){
@@ -39,9 +40,6 @@ public class SimpleHistogramViewController implements HistogramViewController {
         histogramView.setOnMouseReleased((event -> {
             setEndPosition(event.getX());
         }));
-    }
-
-    private void getSelectedBin(){
 
         histogramView.setOnMouseMoved((event) -> {
 
@@ -58,15 +56,15 @@ public class SimpleHistogramViewController implements HistogramViewController {
         mouseSelection.setEndPosition(calculateRange(endPosition));
     }
 
+    public void setSelectedHistogramValue(double histogramValue){
+        mouseSelection.setSelectedHistogramValue(calculateRange(histogramValue));
+    }
+
     private double calculateRange(double position) {
         int min = gridData.getMinValue();
         int max = gridData.getMaxValue();
         double width = histogramView.getWidth();
         return (((position/width)*(max-min))+min);
-    }
-
-    public void setSelectedHistogramValue(double histogramValue){
-        mouseSelection.setSelectedHistogramValue(histogramValue);
     }
 
     private void getBinRange(double Position){

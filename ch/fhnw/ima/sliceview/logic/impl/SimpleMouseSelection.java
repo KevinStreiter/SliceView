@@ -19,8 +19,8 @@ public class SimpleMouseSelection implements MouseSelection {
     private double histogramValue;
     private int min;
     private int max;
-    private int bin;
     private List<MouseSelectionListener> listeners;
+    private List<MouseSelectionListener> listeners2;
     private GridData gridData;
     private ApplicationContext applicationContext;
 
@@ -28,6 +28,7 @@ public class SimpleMouseSelection implements MouseSelection {
         this.applicationContext = applicationContext;
         this.gridData = gridData;
         listeners = new ArrayList<>();
+        listeners2 = new ArrayList<>();
 
         applicationContext.getGridData().addListener(new GridDataListener() {
             @Override
@@ -77,6 +78,8 @@ public class SimpleMouseSelection implements MouseSelection {
 
     public void setSelectedHistogramValue(double histogramValue){
         this.histogramValue = histogramValue;
+        fireHistogramChange();
+
     }
 
     public double getSelectedHistogramValue(){
@@ -86,13 +89,13 @@ public class SimpleMouseSelection implements MouseSelection {
     public void getMin(int min){
         this.min = min;
         setImage();
-        fireSelectionChanged();
+
     }
 
     public void getMax(int max){
         this.max = max;
         setImage();
-        fireSelectionChanged();
+
     }
 
     public Image setImage(){
@@ -103,10 +106,19 @@ public class SimpleMouseSelection implements MouseSelection {
         listeners.add(listener);
     }
 
+    public void addListener2(MouseSelectionListener listener) {
+        listeners2.add(listener);
+    }
+
     private void fireSelectionChanged() {
         for (MouseSelectionListener listener : listeners) {
             listener.selectionChanged();
         }
     }
 
+    private void fireHistogramChange() {
+        for (MouseSelectionListener listener : listeners2) {
+            listener.histogramChanged();
+        }
+    }
 }
