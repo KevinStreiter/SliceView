@@ -10,7 +10,7 @@ public class SliceView extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        final String VERSION = "0.5";
+        final String VERSION = "1.0";
         final String NAME = "SliceView FX";
         final int WINDOW_WIDTH = 1000;
         final int WINDOW_HEIGHT = 800;

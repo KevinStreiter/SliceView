@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleImageModel implements ImageModel {
-    private GridData gridData;
+
     private int min;
     private int max;
     private Image image;
     private List<ImageModelListener> listeners;
+    private GridData gridData;
 
     public SimpleImageModel(final GridData gridData) {
         this.gridData = gridData;
@@ -31,8 +32,6 @@ public class SimpleImageModel implements ImageModel {
                 SimpleImageModel.this.fireModelChanged();
             }
         });
-
-
 
         listeners = new ArrayList<>();
     }
@@ -74,7 +73,7 @@ public class SimpleImageModel implements ImageModel {
         return image;
     }
 
-    public Image getSelection(int min, int max) {
+    public Image getSelectionImage(int min, int max) {
         WritableImage selectionImage = null;
         if ((gridData.getWidth() > 0) && (gridData.getHeight() > 0)) {
             selectionImage = new WritableImage(gridData.getWidth(), gridData.getHeight());

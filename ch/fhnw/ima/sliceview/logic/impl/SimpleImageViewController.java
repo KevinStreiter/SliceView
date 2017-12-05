@@ -9,11 +9,19 @@ public class SimpleImageViewController implements ImageViewController {
     private ImageView imageView;
     private MouseSelection mouseSelection;
 
-
     public SimpleImageViewController(ApplicationContext applicationContext, ImageView imageView) {
         this.mouseSelection = applicationContext.getMouseSelection();
         this.imageView = imageView;
+
         getAllCoordinates();
+    }
+
+    public void setXCoordinate(int xCoordinate) {
+        mouseSelection.setXCoordinate(xCoordinate);
+    }
+
+    public void setYCoordinate(int yCoordinate) {
+        mouseSelection.setYCoordinate(yCoordinate);
     }
 
     private void getAllCoordinates(){
@@ -29,13 +37,5 @@ public class SimpleImageViewController implements ImageViewController {
             setXCoordinate(-1);
             setYCoordinate(-1);
         });
-    }
-
-    public void setXCoordinate(int xCoordinate) {
-        mouseSelection.setXCoordinate(xCoordinate);
-    }
-
-    public void setYCoordinate(int yCoordinate) {
-        mouseSelection.setYCoordinate(yCoordinate);
     }
 }

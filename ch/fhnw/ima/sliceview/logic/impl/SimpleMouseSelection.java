@@ -15,12 +15,13 @@ public class SimpleMouseSelection implements MouseSelection {
 
     private int xCoordinate = -1;
     private int yCoordinate = -1;
-    private double value;
-    private double histogramValue;
     private int min;
     private int max;
+    private double value;
+    private double histogramValue;
+    private Image selectionImage;
     private List<MouseSelectionListener> listeners;
-    private List<MouseSelectionListener> listeners2;
+    private List<MouseSelectionListener> histogramlistener;
     private GridData gridData;
     private ApplicationContext applicationContext;
 
@@ -28,7 +29,7 @@ public class SimpleMouseSelection implements MouseSelection {
         this.applicationContext = applicationContext;
         this.gridData = gridData;
         listeners = new ArrayList<>();
-        listeners2 = new ArrayList<>();
+        histogramlistener = new ArrayList<>();
 
         applicationContext.getGridData().addListener(new GridDataListener() {
             @Override
@@ -79,35 +80,45 @@ public class SimpleMouseSelection implements MouseSelection {
     public void setSelectedHistogramValue(double histogramValue){
         this.histogramValue = histogramValue;
         fireHistogramChange();
-
     }
 
     public double getSelectedHistogramValue(){
         return this.histogramValue;
     }
 
-    public void getMin(int min){
+    public int getMin() {
+        return min;
+    }
+
+    public void setMin(int min){
         this.min = min;
-        setImage();
-
+        setSelectionImage();
     }
 
-    public void getMax(int max){
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max){
         this.max = max;
-        setImage();
-
+        setSelectionImage();
     }
 
-    public Image setImage(){
-        return applicationContext.getImageModel().getSelection(min, max);
+    public Image getSelectionImage() {
+        return this.selectionImage;
+    }
+
+    public void setSelectionImage(){
+        this.selectionImage = applicationContext.getImageModel().getSelectionImage(min, max);
+        fireHistogramChange();
     }
 
     public void addListener(MouseSelectionListener listener) {
         listeners.add(listener);
     }
 
-    public void addListener2(MouseSelectionListener listener) {
-        listeners2.add(listener);
+    public void addHistogramListener(MouseSelectionListener listener) {
+        histogramlistener.add(listener);
     }
 
     private void fireSelectionChanged() {
@@ -117,7 +128,7 @@ public class SimpleMouseSelection implements MouseSelection {
     }
 
     private void fireHistogramChange() {
-        for (MouseSelectionListener listener : listeners2) {
+        for (MouseSelectionListener listener : histogramlistener) {
             listener.histogramChanged();
         }
     }

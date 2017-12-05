@@ -1,21 +1,17 @@
 package ch.fhnw.ima.sliceview.present.image;
 
 import ch.fhnw.ima.sliceview.app.ApplicationContext;
-import ch.fhnw.ima.sliceview.logic.ImageModel;
-import ch.fhnw.ima.sliceview.logic.ImageModelListener;
 import ch.fhnw.ima.sliceview.logic.MouseSelectionListener;
-import ch.fhnw.ima.sliceview.logic.impl.SimpleImageViewController;
 import ch.fhnw.ima.sliceview.present.DrawingPane;
 import javafx.scene.image.Image;
 
 public class ImageView extends DrawingPane {
-    private ApplicationContext applicationContext;
+
     private double imageX;
     private double imageY;
     private double imageWidth;
     private double imageHeight;
-
-
+    private ApplicationContext applicationContext;
 
     ImageView(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
@@ -25,17 +21,27 @@ public class ImageView extends DrawingPane {
 
         applicationContext.getImageModel().addListener(this::repaint);
 
-        applicationContext.getMouseSelection().addListener2(new MouseSelectionListener() {
+        applicationContext.getMouseSelection().addHistogramListener(new MouseSelectionListener() {
 
             @Override
             public void selectionChanged() {
-
             }
 
             @Override
             public void histogramChanged() {
+                int minValue = applicationContext.getMouseSelection().getMin();
+                int maxValue = applicationContext.getMouseSelection().getMax();
+                int minGridValue = applicationContext.getGridData().getMinValue();
+                int maxGridValue = applicationContext.getGridData().getMaxValue();
+
                 repaint();
-                g.drawImage(applicationContext.getMouseSelection().setImage(), imageX, imageY, imageWidth, imageHeight);
+
+                if(minValue != minGridValue || maxValue != maxGridValue){
+                    g.drawImage(applicationContext.getMouseSelection().getSelectionImage(), imageX, imageY, imageWidth, imageHeight);
+                }
+                else{
+                    paint();
+                }
             }
         });
     }

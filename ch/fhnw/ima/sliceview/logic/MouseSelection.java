@@ -24,13 +24,19 @@ public interface MouseSelection {
 
     void setSelectedHistogramValue(double histogramValue);
 
-    void getMin(int min);
+    int getMin();
 
-    void getMax(int max);
+    void setMin(int min);
 
-    Image setImage();
+    int getMax();
+
+    void setMax(int max);
+
+    Image getSelectionImage();
+
+    void setSelectionImage();
 
     void addListener(MouseSelectionListener listener);
 
-    void addListener2(MouseSelectionListener listener);
+    void addHistogramListener(MouseSelectionListener listener);
 }

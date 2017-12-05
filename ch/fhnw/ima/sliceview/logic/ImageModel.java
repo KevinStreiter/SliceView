@@ -44,7 +44,7 @@ public interface ImageModel {
      */
     Image getImage();
 
-    Image getSelection(int min, int max);
+    Image getSelectionImage(int min, int max);
 
     /**
      * Add an observer (listener) that is notified when the image model (e.g. the windowing range) changed.

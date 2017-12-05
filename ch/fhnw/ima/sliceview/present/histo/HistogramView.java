@@ -42,7 +42,7 @@ public class HistogramView extends DrawingPane {
         });
 
 
-        applicationContext.getMouseSelection().addListener2(new MouseSelectionListener() {
+        applicationContext.getMouseSelection().addHistogramListener(new MouseSelectionListener() {
 
             @Override
             public void selectionChanged() {
@@ -58,7 +58,6 @@ public class HistogramView extends DrawingPane {
         });
 
         applicationContext.getImageModel().addListener(this::selectionBorder);
-
     }
 
     public boolean isLogarithmicScale() {
@@ -77,7 +76,6 @@ public class HistogramView extends DrawingPane {
             for (int i = 0; i < histogram.getBinCount(); i++) {
                 drawBar(i);
             }
-
         }
     }
 
@@ -127,7 +125,6 @@ public class HistogramView extends DrawingPane {
         drawStroke(minBorder);
         double maxBorder = (maxValue-min) / (max-min) * getWidth();
         drawStroke(maxBorder);
-
     }
 
     private void drawStroke(double border){

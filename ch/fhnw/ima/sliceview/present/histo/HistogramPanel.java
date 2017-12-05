@@ -75,8 +75,10 @@ public class HistogramPanel extends StackPane {
         final Button clearButton = new Button("clear");
         controlPanel.getChildren().add(clearButton);
         clearButton.setOnAction(event -> {
-            applicationContext.getImageModel().setMin(applicationContext.getGridData().getMinValue());
-            applicationContext.getImageModel().setMax(applicationContext.getGridData().getMaxValue());
+            int minValue = applicationContext.getGridData().getMinValue();
+            int maxValue = applicationContext.getGridData().getMaxValue();
+            applicationContext.getImageModel().setMin(minValue);
+            applicationContext.getImageModel().setMax(maxValue);
         });
 
         applicationContext.getImageModel().addListener(new ImageModelListener() {
